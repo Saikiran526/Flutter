@@ -71,11 +71,16 @@ class _HomeState extends State<Home> {
                                   maxLines: 2,
                               ),
                               TextButton(onPressed: () async {
-                                final Uri _url=Uri.parse(news.url!);
-                                if( await canLaunchUrl(_url)){
-                                  await launchUrl(_url,mode: LaunchMode.externalApplication);
+                                if(news.url!=null && news.url!.isNotEmpty){
+                                  final Uri _url=Uri.parse(news.url!);
+                                  if( await canLaunchUrl(_url)){
+                                    await launchUrl(_url,mode: LaunchMode.externalApplication);
+                                  } else {
+                                    print('Url is : ${news.url}');
+                                    print('Could not lunch url');
+                                  }
                                 } else {
-                                  print('Could not lunch url');
+                                  print('Url is not valid');
                                 }
                               }, child: Text('more...'))
                             ],
