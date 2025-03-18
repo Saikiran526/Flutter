@@ -4,6 +4,8 @@ import 'package:flutter_dio_api/services/api_service.dart';
 import 'package:flutter_dio_api/viewModel/news_viewModel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../viewModel/overlay_viewModel.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -14,17 +16,19 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   final ApiService _apiService=ApiService();
-   get apiService=>_apiService;
-   final NewsModel _newsModel=NewsModel();
+  get apiService=>_apiService;
+  final NewsModel _newsModel=NewsModel();
   get newsModel=>_newsModel;
   final NewsViewModel _newsViewModel=NewsViewModel();
   bool isLoading=true;
+  late OverlayViewModel overlayViewModel;
 
 
   @override
   void initState() {
     super.initState();
     fetchNews();
+    overlayViewModel=OverlayViewModel(context: context);
   }
   void fetchNews() async {
     await _newsViewModel.getNews();
@@ -33,10 +37,32 @@ class _HomeState extends State<Home> {
     });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Quick News'),backgroundColor: Colors.blue,),
+      appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text('Quick News'),
+        ),
+        backgroundColor: Colors.blue,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+                onPressed: (){
+                  if(overlayViewModel.overlayEntry==null){
+                    overlayViewModel.showOverlay();
+                  }else{
+                    overlayViewModel.removeOverlay();
+                  }
+                },
+                icon: Icon(Icons.menu)),
+          )
+        ],
+      ),
       body: isLoading
         ? Center(child: CircularProgressIndicator())
         : ListView.builder(
