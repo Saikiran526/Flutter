@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class NewsModel{
   String? title;
   String? description;

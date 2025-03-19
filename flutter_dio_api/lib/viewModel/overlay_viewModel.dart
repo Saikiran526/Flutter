@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dio_api/providers/category_provider.dart';
+import 'package:provider/provider.dart';
 
 class OverlayViewModel{
 
   BuildContext context;
-
   OverlayViewModel({required this.context,});
 
   OverlayEntry? overlayEntry;
@@ -33,13 +34,56 @@ class OverlayViewModel{
                           padding: const EdgeInsets.only(top: 20),
                           child: Text('---Select Category---',style: TextStyle(fontSize: 20),),
                         ),
-                        TextButton(onPressed: (){}, child: Text('General')),
-                        TextButton(onPressed: (){}, child: Text('business')),
-                        TextButton(onPressed: (){}, child: Text('entertainment')),
-                        TextButton(onPressed: (){}, child: Text('health')),
-                        TextButton(onPressed: (){}, child: Text('science')),
-                        TextButton(onPressed: (){}, child: Text('sports')),
-                        TextButton(onPressed: (){}, child: Text('technology')),
+                        // TextButton(onPressed: (){categoryProvider.setCategory("")}, child: Text('General')),
+                        TextButton(
+                            onPressed: (){
+                              Provider.of<CategoryProvider>(context, listen: false).setCategory("general");
+                              removeOverlay();
+                            },
+                            child: Text('general')
+                        ),
+                        TextButton(
+                            onPressed: (){
+                              Provider.of<CategoryProvider>(context, listen: false).setCategory("business");
+                              removeOverlay();
+                            },
+                            child: Text('business')
+                        ),
+                        TextButton(
+                            onPressed: (){
+                              Provider.of<CategoryProvider>(context, listen: false).setCategory("entertainment");
+                              removeOverlay();
+                            },
+                            child: Text('entertainment')
+                        ),
+                        TextButton(
+                            onPressed: (){
+                              Provider.of<CategoryProvider>(context, listen: false).setCategory("health");
+                              removeOverlay();
+                            },
+                            child: Text('health')
+                        ),
+                        TextButton(
+                            onPressed: (){
+                              Provider.of<CategoryProvider>(context, listen: false).setCategory("science");
+                              removeOverlay();
+                            },
+                            child: Text('science')
+                        ),
+                        TextButton(
+                            onPressed: (){
+                              Provider.of<CategoryProvider>(context, listen: false).setCategory("sports");
+                              removeOverlay();
+                            },
+                            child: Text('sports')
+                        ),
+                        TextButton(
+                            onPressed: (){
+                              Provider.of<CategoryProvider>(context, listen: false).setCategory("technology");
+                              removeOverlay();
+                            },
+                            child: Text('technology')
+                        ),
                       ],
                     ),
                   ),

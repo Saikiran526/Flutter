@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dio_api/providers/category_provider.dart';
+import 'package:flutter_dio_api/services/api_service.dart';
 import 'package:flutter_dio_api/view/home.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => CategoryProvider()),
+        ChangeNotifierProvider(create: (_) => ApiService()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

@@ -1,21 +1,23 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/widgets.dart';
 
-class ApiService{
+class ApiService extends ChangeNotifier{
   final Dio _dio=Dio(
     BaseOptions(
       baseUrl: "https://newsapi.org/v2/",
-      receiveTimeout: Duration(seconds: 1),
-      connectTimeout: Duration(seconds: 1),
+      receiveTimeout: Duration(seconds: 10),
+      connectTimeout: Duration(seconds: 10),
     )
   );
 
-  Future<List<dynamic>> getNews() async {
+  Future<List<dynamic>> fetchNews(String category) async {
     try{
+      print("Category we get in the api_service : $category");
       Response response= await _dio.get(
         "top-headlines",
           queryParameters: {
           "country":"us",
-            "category":"general",
+            "category":category,///"general",///category,
             "apiKey":"ee4270806ec74c82a014d5c4c41e0ff5",
           }
       );
